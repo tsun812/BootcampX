@@ -37,9 +37,9 @@ client.query(`
     SELECT students.id, students.name, cohorts.name AS cohorts
     FROM students
     JOIN cohorts ON cohort_id = cohorts.id
-    WHERE cohorts.name LIKE '${process.argv[2]}%'
-    LIMIT ${process.argv[3]};
-`)
+    WHERE cohorts.name LIKE $1
+    LIMIT $2;
+`, [`%process.argv[2]%`, process.argv[3]])
 .then(res => {
   console.log(res.rows);
   res.rows.forEach(user => {
